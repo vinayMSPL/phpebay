@@ -1,0 +1,50 @@
+"General"
+{
+"ProjectType" = "local"
+"AutoLoadTemplate" = "%s.php;class.%s.php;"
+"IncludeDirs" = ""
+}
+"Configurations"
+{
+    "Local|PHP 5.2"
+    {
+    }
+    "Staging|PHP 5.2"
+    {
+    }
+    "Production|PHP 5.2"
+    {
+    }
+}
+"Files"
+{
+    "AddItem.php"
+    {
+    "ProjRelPath" = "T"
+    }
+    "AddItem.php.bak"
+    {
+    "ProjRelPath" = "T"
+    }
+    "README.txt"
+    {
+    "ProjRelPath" = "T"
+    }
+    "sample_output_after_listing.html"
+    {
+    "ProjRelPath" = "T"
+    }
+    "sample_output_before_listing.html"
+    {
+    "ProjRelPath" = "T"
+    }
+}
+"ProjStartupServices"
+{
+}
+"Globals"
+{
+}
+"References"
+{
+}
