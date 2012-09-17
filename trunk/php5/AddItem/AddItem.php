@@ -78,6 +78,7 @@ if(isset($_POST['listingType']))
 	//Get the item entered
 	$listingType     = $_POST['listingType'];
 	$primaryCategory = $_POST['primaryCategory'];
+	$secondCategory="";
 	$itemTitle       = $_POST['itemTitle'];
 	if(get_magic_quotes_gpc()) {
 		// print "stripslashes!!! <br>\n";
@@ -106,37 +107,46 @@ if(isset($_POST['listingType']))
 	$siteID = 0;
 	//the call being made:
 	$verb = 'AddItem';
-	$userToken="AgAAAA**AQAAAA**aAAAAA**bpVgTw**nY+sHZ2PrBmdj6wVnY+sEZ2PrA2dj6wJnY+lCpaLoAydj6x9nY+seQ**61UAAA**AAMAAA**sI7FyGQMpF2sSiRnarXjBfEefiolJU5iQiVFOHcOsSZs28bMucNrUeVa/A8n2C0YIPk1vxdjW9EoNHabYXaSE/rIVc52aK8C1jDH9H4bAr8d1v+o+QdxbaJGzigHCyabiXO3wXdID9mo/NiBuGf3s9XaeYKpUvW2Ps/py7quUd3RLDkvKmscSpDMZd9TEcpzzj6teJIf2vIg+nlwNyAERIYrD9dm3VF3x/+/wQodSW3QdnvV/tWLzDaw+xWjglxicqPhV+l5KEW8YPrZlwLfjfv1lWPCLBCJHXHRVd3PUZUekhHavC6MCTudoHpkp/3VlFrF0Kc9L7Wgv63gxhoKYgIUZJuJRvsd/kRQIlY0souzzDy+y0P6dOUWYqHdfRrMrzrMFCOi/hYVarBYQnAdtwRvcp3frfym7SoU2mpVImr/F6Nfa1QP1uiIHgRmWljNPcvY9wExC4A9lSNIWmWc+HEY8c48R0C59rzT3Gj1bH6HPTX1z6v6qjFMfAz6Dr488ds2tRgEzybl+gwaNx1BovZKf4IuKdud0Y9dVm2W+3GXjhcBnXoWcM3MddHMGe/zHOq9J043NULoZb5KOKXenDS9tsnDHk2yKKIdOoWWhVlYcEizqBd5H7XjB1+vZgFYWQfJph7qS/Hxj0leg9PrVKOHqBUAtXU8EHJg8uZX+B3GjCshuMc3LGk0J//7JEWwrq5+T/APnDojVC3LIhYDO0MH+VRHUiZ6aH+HpU4ZcahWGTkBuT7cFLINcrs/YOxv";
+	$detailLevel ='ReturnAll';
+	$errorLanguage ='en_US';
+
+    $site="US";
+    $currency="USD";
+	$country ="US";
+	$location="San Jose, CA";
+	$paymentMethod="PayPal";
+	$paypalEmailAddress="magicalbookseller@yahoo.com";
+	$shippingTermsInDescription =true;
+
 	///Build the request Xml string
 	$requestXmlBody  = '<?xml version="1.0" encoding="utf-8" ?>';
 	$requestXmlBody .= '<AddItemRequest xmlns="urn:ebay:apis:eBLBaseComponents">';
 	$requestXmlBody .= "<RequesterCredentials><eBayAuthToken>$userToken</eBayAuthToken></RequesterCredentials>";
-	$requestXmlBody .= '<DetailLevel>ReturnAll</DetailLevel>';
-	$requestXmlBody .= '<ErrorLanguage>en_US</ErrorLanguage>';
+	$requestXmlBody .= "<DetailLevel>$detailLevel</DetailLevel>";
+	$requestXmlBody .= "<ErrorLanguage>$errorLanguage</ErrorLanguage>";
 	$requestXmlBody .= "<Version>$compatabilityLevel</Version>";
 	$requestXmlBody .= '<Item>';
-	$requestXmlBody .= '<Site>US</Site>';
+	$requestXmlBody .= "<Site>$site</Site>";
 	$requestXmlBody .= '<PrimaryCategory>';
 	$requestXmlBody .= "<CategoryID>$primaryCategory</CategoryID>";
 	$requestXmlBody .= '</PrimaryCategory>';
-	$requestXmlBody .= "<BuyItNowPrice currencyID=\"USD\">$buyItNowPrice</BuyItNowPrice>";
-	$requestXmlBody .= '<Country>US</Country>';
-	$requestXmlBody .= '<Currency>USD</Currency>';
+	$requestXmlBody .= "<BuyItNowPrice currencyID=\"$currency\">$buyItNowPrice</BuyItNowPrice>";
+	$requestXmlBody .= "<Country>$country</Country>";
+	$requestXmlBody .= "<Currency>$currency</Currency>";
 	$requestXmlBody .= "<ListingDuration>$listingDuration</ListingDuration>";
 	$requestXmlBody .= "<ListingType>$listingType</ListingType>";
-	$requestXmlBody .= '<Location><![CDATA[San Jose, CA]]></Location>';
-	$requestXmlBody .= '<PaymentMethods>PayPal</PaymentMethods>';
+	$requestXmlBody .= "<Location><![CDATA[$location]]></Location>";
+	$requestXmlBody .= "<PaymentMethods>$paymentMethod</PaymentMethods>";
 
-   $requestXmlBody .= ' <PayPalEmailAddress>magicalbookseller@yahoo.com</PayPalEmailAddress>';
+	$requestXmlBody .= "<PayPalEmailAddress>$paypalEmailAddress</PayPalEmailAddress>";
 	
 	$requestXmlBody .= "<Quantity>$quantity</Quantity>";
-	$requestXmlBody .= '<RegionID>0</RegionID>';
 	$requestXmlBody .= "<StartPrice>$startPrice</StartPrice>";
-	$requestXmlBody .= '<ShippingTermsInDescription>True</ShippingTermsInDescription>';
+	$requestXmlBody .= "<ShippingTermsInDescription>$shippingTermsInDescription</ShippingTermsInDescription>";
 	$requestXmlBody .= "<Title><![CDATA[$itemTitle]]></Title>";
 	$requestXmlBody .= "<Description><![CDATA[$itemDescription]]></Description>";
 	
-	$requestXmlBody .=	   "<ReturnPolicy>";
+	$requestXmlBody .= "<ReturnPolicy>";
 	$requestXmlBody .=	"<ReturnsAcceptedOption>ReturnsAccepted</ReturnsAcceptedOption>";
 	$requestXmlBody .=	"<RefundOption>MoneyBack</RefundOption>";
 	$requestXmlBody .=	"<ReturnsWithinOption>Days_30</ReturnsWithinOption>";
