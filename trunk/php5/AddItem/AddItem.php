@@ -137,6 +137,14 @@ if(isset($_POST['listingType']))
 	//$requestXmlBody .= "<CategoryID>$secondCategory</CategoryID>";
 	//$requestXmlBody .= '</SecondaryCategory>';
 	
+	$storeCategoryID="12";
+	$storeCategory2ID="11";
+	//Storefront
+    $requestXmlBody .= '<Storefront>';
+	$requestXmlBody .= "<StoreCategoryID>$storeCategoryID</StoreCategoryID>";
+	$requestXmlBody .= "<StoreCategory2ID>$storeCategory2ID</StoreCategory2ID>";
+	$requestXmlBody .= '</Storefront>';
+
 	$requestXmlBody .= "<BuyItNowPrice currencyID=\"$currency\">$buyItNowPrice</BuyItNowPrice>";
 	$requestXmlBody .= "<Country>$country</Country>";
 	$requestXmlBody .= "<Currency>$currency</Currency>";
