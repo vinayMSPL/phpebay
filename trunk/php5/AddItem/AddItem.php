@@ -16,7 +16,7 @@
             <option value="Chinese">Chinese</option>
             <option value="Dutch">Dutch</option>
             <option value="FixedPriceItem">Fixed Price Item</option>
-            <option value="StoresFixedPrice">Stores Fixed Price</option>
+
           </select>
         </TD>
 	</TR>
@@ -79,7 +79,8 @@ if(isset($_POST['listingType']))
 	$listingType     = $_POST['listingType'];
 	$primaryCategory = $_POST['primaryCategory'];
 	$secondCategory="";
-	$itemTitle       = $_POST['itemTitle'];
+	$title       = $_POST['itemTitle'];
+	$subTitle = "SubTitle needs fees";
 	if(get_magic_quotes_gpc()) {
 		// print "stripslashes!!! <br>\n";
 		$itemDescription = stripslashes($_POST['itemDescription']);
@@ -130,6 +131,12 @@ if(isset($_POST['listingType']))
 	$requestXmlBody .= '<PrimaryCategory>';
 	$requestXmlBody .= "<CategoryID>$primaryCategory</CategoryID>";
 	$requestXmlBody .= '</PrimaryCategory>';
+	
+	//SecondaryCategory
+	//$requestXmlBody .= '<SecondaryCategory>';
+	//$requestXmlBody .= "<CategoryID>$secondCategory</CategoryID>";
+	//$requestXmlBody .= '</SecondaryCategory>';
+	
 	$requestXmlBody .= "<BuyItNowPrice currencyID=\"$currency\">$buyItNowPrice</BuyItNowPrice>";
 	$requestXmlBody .= "<Country>$country</Country>";
 	$requestXmlBody .= "<Currency>$currency</Currency>";
@@ -143,15 +150,23 @@ if(isset($_POST['listingType']))
 	$requestXmlBody .= "<Quantity>$quantity</Quantity>";
 	$requestXmlBody .= "<StartPrice>$startPrice</StartPrice>";
 	$requestXmlBody .= "<ShippingTermsInDescription>$shippingTermsInDescription</ShippingTermsInDescription>";
-	$requestXmlBody .= "<Title><![CDATA[$itemTitle]]></Title>";
+	$requestXmlBody .= "<Title><![CDATA[$title]]></Title>";
+	$requestXmlBody .= "<SubTitle><![CDATA[$subTitle]]></SubTitle>";
+	
 	$requestXmlBody .= "<Description><![CDATA[$itemDescription]]></Description>";
 	
+	$returnsAcceptedOption ="ReturnsAccepted";
+	$refundOption ="MoneyBack";
+	$returnsWithinOption ="Days_30";
+	$returnPolicyDescription ="Text description of return policy details";
+	$shippingCostPaidByOption ="Buyer";
+	
 	$requestXmlBody .= "<ReturnPolicy>";
-	$requestXmlBody .=	"<ReturnsAcceptedOption>ReturnsAccepted</ReturnsAcceptedOption>";
-	$requestXmlBody .=	"<RefundOption>MoneyBack</RefundOption>";
-	$requestXmlBody .=	"<ReturnsWithinOption>Days_30</ReturnsWithinOption>";
-	$requestXmlBody .=	 "<Description>Text description of return policy details</Description>";
-	$requestXmlBody .=	 "<ShippingCostPaidByOption>Buyer</ShippingCostPaidByOption>";
+	$requestXmlBody .=	"<ReturnsAcceptedOption>$returnsAcceptedOption</ReturnsAcceptedOption>";
+	$requestXmlBody .=	"<RefundOption>$refundOption</RefundOption>";
+	$requestXmlBody .=	"<ReturnsWithinOption>$returnsWithinOption</ReturnsWithinOption>";
+	$requestXmlBody .=	 "<Description>$returnPolicyDescription</Description>";
+	$requestXmlBody .=	 "<ShippingCostPaidByOption>$shippingCostPaidByOption</ShippingCostPaidByOption>";
 	$requestXmlBody .="</ReturnPolicy>";
 	
 	
@@ -216,7 +231,7 @@ if(isset($_POST['listingType']))
 			echo "itemID = $itemID <BR />\n";
 			
 			$linkBase = "http://cgi.sandbox.ebay.com/ws/eBayISAPI.dll?ViewItem&item=";
-			echo "<a href=$linkBase" . $itemID . ">$itemTitle</a> <BR />";
+			echo "<a href=$linkBase" . $itemID . ">$title</a> <BR />";
 			
 			$feeNodes = $responseDoc->getElementsByTagName('Fee');
 			foreach($feeNodes as $feeNode) {
