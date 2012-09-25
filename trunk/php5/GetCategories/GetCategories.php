@@ -148,13 +148,15 @@ function displayTopLevelCategories($tree)
 */
 function getEntireCategoryTree($devID, $appID, $certID, $compatabilityLevel, $siteID, $userToken, $serverUrl)
 {
+	$detailLevel = "ReturnAll";
+	$viewAllNodes = 1;
 	//Build the request Xml string
 	$requestXmlBody = '<?xml version="1.0" encoding="utf-8" ?>';
 	$requestXmlBody .= '<GetCategoriesRequest xmlns="urn:ebay:apis:eBLBaseComponents">';
 	$requestXmlBody .= "<RequesterCredentials><eBayAuthToken>$userToken</eBayAuthToken></RequesterCredentials>";
-	$requestXmlBody .= "<DetailLevel>ReturnAll</DetailLevel>"; //get the entire tree
-	$requestXmlBody .= "<Item><Site>$siteID</Site></Item>";
-	$requestXmlBody .= "<ViewAllNodes>1</ViewAllNodes>"; //Gets all nodes not just leaf nodes
+	$requestXmlBody .= "<DetailLevel>$detailLevel</DetailLevel>"; //get the entire tree
+	$requestXmlBody .= "<CategorySiteID>$siteID</CategorySiteID>";
+	$requestXmlBody .= "<ViewAllNodes>$viewAllNodes</ViewAllNodes>"; //Gets all nodes not just leaf nodes
 	$requestXmlBody .= '</GetCategoriesRequest>';
 	
 	//Create a new eBay session with all details pulled in from included keys.php
@@ -180,12 +182,13 @@ function getEntireCategoryTree($devID, $appID, $certID, $compatabilityLevel, $si
 */
 function getOnlineTreeVersion($devID, $appID, $certID, $compatabilityLevel, $siteID, $userToken, $serverUrl)
 {
+	$viewAllNodes = 0;
 	//Build the request Xml string
 	$requestXmlBody = '<?xml version="1.0" encoding="utf-8" ?>';
 	$requestXmlBody .= '<GetCategoriesRequest xmlns="urn:ebay:apis:eBLBaseComponents">';
 	$requestXmlBody .= "<RequesterCredentials><eBayAuthToken>$userToken</eBayAuthToken></RequesterCredentials>";
-	$requestXmlBody .= "<Item><Site>$siteID</Site></Item>";
-	$requestXmlBody .= "<ViewAllNodes>0</ViewAllNodes>";
+	$requestXmlBody .= "<CategorySiteID>$siteID</CategorySiteID>";
+	$requestXmlBody .= "<ViewAllNodes>$viewAllNodes</ViewAllNodes>";
 	$requestXmlBody .= '</GetCategoriesRequest>';
 	
 	//Create a new eBay session with all details pulled in from included keys.php

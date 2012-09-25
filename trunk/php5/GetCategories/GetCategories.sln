@@ -1,0 +1,23 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{1863889A-00DF-4350-BA39-669CA949CB81}") = "GetCategories", "GetCategories.phpproj", "{2DDDA90D-CD48-42A4-BF63-A10E778D9302}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Local|PHP 5.2 = Local|PHP 5.2
+		Production|PHP 5.2 = Production|PHP 5.2
+		Staging|PHP 5.2 = Staging|PHP 5.2
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2DDDA90D-CD48-42A4-BF63-A10E778D9302}.Local|PHP 5.2.ActiveCfg = Local|PHP 5.2
+		{2DDDA90D-CD48-42A4-BF63-A10E778D9302}.Local|PHP 5.2.Deploy.0 = Local|PHP 5.2
+		{2DDDA90D-CD48-42A4-BF63-A10E778D9302}.Production|PHP 5.2.ActiveCfg = Production|PHP 5.2
+		{2DDDA90D-CD48-42A4-BF63-A10E778D9302}.Production|PHP 5.2.Deploy.0 = Production|PHP 5.2
+		{2DDDA90D-CD48-42A4-BF63-A10E778D9302}.Staging|PHP 5.2.ActiveCfg = Staging|PHP 5.2
+		{2DDDA90D-CD48-42A4-BF63-A10E778D9302}.Staging|PHP 5.2.Deploy.0 = Staging|PHP 5.2
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

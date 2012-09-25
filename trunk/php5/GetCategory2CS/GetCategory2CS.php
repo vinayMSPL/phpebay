@@ -16,9 +16,9 @@
 	//SiteID Indicates the eBay site to associate the call with
 	$siteID = 0;
 	//Regulates versioning of the XML interface for the API
-	$compatabilityLevel = 433;
+	//$compatabilityLevel = 433;
 	//whether to use Sandbox or Production server
-	$useSandboxServer = true;
+    //$useSandboxServer = true;
 	
 	
 	$catMapDoc = NULL;  //declared here for wider variable scope to avoid parsing twice
