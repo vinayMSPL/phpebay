@@ -34,14 +34,6 @@
     {
     "ProjRelPath" = "T"
     }
-    "sample_output_after_listing.html"
-    {
-    "ProjRelPath" = "T"
-    }
-    "sample_output_before_listing.html"
-    {
-    "ProjRelPath" = "T"
-    }
 }
 "ProjStartupServices"
 {
