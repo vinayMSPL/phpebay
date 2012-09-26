@@ -1,5 +1,5 @@
-<?php require_once('../get-common/keys.php') ?>
-<?php require_once('../get-common/eBaySession.php') ?>
+<?php require_once('./get-common/keys.php') ?>
+<?php require_once('./get-common/eBaySession.php') ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <HTML>
 <HEAD>
@@ -163,11 +163,44 @@ if(isset($_POST['listingType']))
 	
 	$requestXmlBody .= "<Description><![CDATA[$itemDescription]]></Description>";
 	
+	//BuyerRequirement
+	
+	 $requestXmlBody .= "             <BuyerRequirementDetails>";
+     $requestXmlBody .= "               <ShipToRegistrationCountry>false</ShipToRegistrationCountry>";
+      $requestXmlBody .= "              <ZeroFeedbackScore>false</ZeroFeedbackScore>";
+      $requestXmlBody .= "              <LinkedPayPalAccount>false</LinkedPayPalAccount>";
+      $requestXmlBody .= "              <VerifiedUserRequirements>";
+      $requestXmlBody .= "                  <VerifiedUser>false</VerifiedUser>";
+     $requestXmlBody .= "                   <MinimumFeedbackScore>5</MinimumFeedbackScore>";
+    $requestXmlBody .= "                </VerifiedUserRequirements>";
+     $requestXmlBody .= "               <MaximumUnpaidItemStrikesInfo>";
+   $requestXmlBody .= "                     <Count>2</Count>";
+     $requestXmlBody .= "                   <Period>Days_30</Period>";
+    $requestXmlBody .= "                </MaximumUnpaidItemStrikesInfo>";
+    $requestXmlBody .= "               <MaximumBuyerPolicyViolations>";
+      $requestXmlBody .= "                  <Count>4</Count>";
+     $requestXmlBody .= "                   <Period>Days_30</Period>";
+     $requestXmlBody .= "               </MaximumBuyerPolicyViolations>";
+	$requestXmlBody .= "           </BuyerRequirementDetails>";
+	
+	//PictureDetails
+	
+	$GalleryType ="Plus";
+	$GalleryURL ="http://i1.sandbox.ebayimg.com/03/i/00/3e/5f/cc_12.JPG";
+	$PictureURL ="http://i1.sandbox.ebayimg.com/03/i/00/3d/9b/37_1.JPG?set_id=8800005007";
+	
+	 $requestXmlBody .= "      <PictureDetails>";
+	$requestXmlBody .= "     <GalleryType>$GalleryType</GalleryType>";
+	$requestXmlBody .= "     <GalleryURL>$GalleryURL</GalleryURL>";
+	$requestXmlBody .= "    <PictureURL>$PictureURL</PictureURL>";
+	$requestXmlBody .= "    </PictureDetails>";
+
 	$returnsAcceptedOption ="ReturnsAccepted";
 	$refundOption ="MoneyBack";
 	$returnsWithinOption ="Days_30";
 	$returnPolicyDescription ="Text description of return policy details";
 	$shippingCostPaidByOption ="Buyer";
+	
 	
 	$requestXmlBody .= "<ReturnPolicy>";
 	$requestXmlBody .=	"<ReturnsAcceptedOption>$returnsAcceptedOption</ReturnsAcceptedOption>";
@@ -177,15 +210,17 @@ if(isset($_POST['listingType']))
 	$requestXmlBody .=	 "<ShippingCostPaidByOption>$shippingCostPaidByOption</ShippingCostPaidByOption>";
 	$requestXmlBody .="</ReturnPolicy>";
 	
+	
+	
 	//flat shipping service
 	 $requestXmlBody .=	    "<ShippingDetails>";
     $requestXmlBody .=	   "<ShippingType>Flat</ShippingType>";
     $requestXmlBody .=	   "<ShippingServiceOptions>";
     $requestXmlBody .=	     "<ShippingServicePriority>1</ShippingServicePriority>";
-      $requestXmlBody .=	   "<ShippingService>USPSMedia</ShippingService>";
+    $requestXmlBody .=	   "<ShippingService>USPSMedia</ShippingService>";
     $requestXmlBody .=	    "<ShippingServiceCost>2.50</ShippingServiceCost>";
     $requestXmlBody .=	   "</ShippingServiceOptions>";
-       $requestXmlBody .="</ShippingDetails>";
+    $requestXmlBody .="</ShippingDetails>";
 	//calculate shipping service
 	 //<ShippingDetails>
   //    <CalculatedShippingRate>

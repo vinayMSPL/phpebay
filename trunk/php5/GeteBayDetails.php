@@ -1,5 +1,5 @@
-<?php require_once('../get-common/keys.php') ?>
-<?php require_once('../get-common/eBaySession.php') ?>
+<?php require_once('./get-common/keys.php') ?>
+<?php require_once('./get-common/eBaySession.php') ?>
 <?php
 
 	ini_set('magic_quotes_gpc', false);    // magic quotes will only confuse things like escaping apostrophe
