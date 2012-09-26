@@ -74,9 +74,9 @@ class eBaySession
 $loginpassw = 'suzsoft\peter.wang:pass@@word0512';  //your proxy login and password here
 $proxy_ip = '10.0.205.132'; //proxy IP here
 $proxy_port = 3128; //proxy port from your proxy list
-curl_setopt($connection, CURLOPT_PROXYPORT, $proxy_port);
-curl_setopt($connection, CURLOPT_PROXYTYPE, 'HTTP');
-curl_setopt($connection, CURLOPT_PROXY, $proxy_ip);
+//curl_setopt($connection, CURLOPT_PROXYPORT, $proxy_port);
+//curl_setopt($connection, CURLOPT_PROXYTYPE, 'HTTP');
+//curl_setopt($connection, CURLOPT_PROXY, $proxy_ip);
 //curl_setopt($connection, CURLOPT_PROXYUSERPWD, $loginpassw);
 		
 		//Send the Request
