@@ -1,3 +1,4 @@
+<?php require_once('./get-common/Utilities.php') ?>
 <?php require_once('./get-common/keys.php') ?>
 <?php require_once('./get-common/eBaySession.php') ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -299,6 +300,29 @@ if(isset($_POST['listingType']))
 	
 	
 	$requestXmlBody .="<DispatchTimeMax>3</DispatchTimeMax>";
+	//UUID
+	$UUID =$Facet_Utility->gen_uuid();
+	$requestXmlBody .="<UUID>$UUID</UUID>";
+
+//$ProductID="228742";
+	$ProductReferenceID="62923188";
+	//ProductListingDetails
+	//$requestXmlBody .="<ProductListingDetails>";
+
+   	//$requestXmlBody .=" <IncludeStockPhotoURL>true</IncludeStockPhotoURL>";
+   	//$requestXmlBody .=" <ProductReferenceID>$ProductReferenceID</ProductReferenceID>";
+    //$requestXmlBody .="  <ProductID>$ProductID</ProductID>";
+	//$requestXmlBody .="  </ProductListingDetails>";
+	
+	//DiscountPriceInfo
+	$requestXmlBody .="<DiscountPriceInfo>";
+   	$requestXmlBody .="<MinimumAdvertisedPrice currencyID=\"USD\">0.1</MinimumAdvertisedPrice>";
+	$requestXmlBody .="<MinimumAdvertisedPriceExposure>PreCheckout</MinimumAdvertisedPriceExposure>";
+	$requestXmlBody .="<OriginalRetailPrice currencyID=\"USD\">0.2</OriginalRetailPrice>";
+	$requestXmlBody .="<PricingTreatment>MAP</PricingTreatment>";
+	 
+   	$requestXmlBody .="</DiscountPriceInfo>";
+	
 	$requestXmlBody .= '</Item>';
 	$requestXmlBody .= '</AddItemRequest>';
 	

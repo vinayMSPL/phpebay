@@ -34,6 +34,10 @@
     {
     "ProjRelPath" = "T"
     }
+    "FindProducts.php"
+    {
+    "ProjRelPath" = "T"
+    }
     "get-common"
     {
     "ProjRelPath" = "T"
@@ -54,6 +58,10 @@
     {
     "ProjRelPath" = "T"
     }
+    "get-common\\Utilities.php"
+    {
+    "ProjRelPath" = "T"
+    }
     "GetCategories.php"
     {
     "ProjRelPath" = "T"
@@ -67,6 +75,42 @@
     "ProjRelPath" = "T"
     }
     "GeteBayOfficialTime.php"
+    {
+    "ProjRelPath" = "T"
+    }
+    "GetSuggestedCategories.php"
+    {
+    "ProjRelPath" = "T"
+    }
+    "Shopping"
+    {
+    "ProjRelPath" = "T"
+    }
+    "Shopping\\DisplayUtils.php"
+    {
+    "ProjRelPath" = "T"
+    }
+    "Shopping\\GetUserProfileFIA.php"
+    {
+    "ProjRelPath" = "T"
+    }
+    "sql"
+    {
+    "ProjRelPath" = "T"
+    }
+    "sql\\eBayBuyRequirement.sql"
+    {
+    "ProjRelPath" = "T"
+    }
+    "sql\\eBayCategories.sql"
+    {
+    "ProjRelPath" = "T"
+    }
+    "sql\\eBayReturnPolicy.sql"
+    {
+    "ProjRelPath" = "T"
+    }
+    "sql\\eBayShippingDetails.sql"
     {
     "ProjRelPath" = "T"
     }
