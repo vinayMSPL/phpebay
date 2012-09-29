@@ -12,13 +12,14 @@
 <TABLE cellpadding="2" border="0">
 
     <TR>
-		<TD>CategoryID(default to site features if cateogryId is not specified ):</TD>
+		<TD>CategoryID:</TD>
 		<TD><INPUT type="text" name="categoryId" value="57889"  size=30></TD>
 	</TR>
    
 	<TR>
-		<TD colspan="2" align="right"><INPUT type="submit" name="submit" value="GetCategoryFeatures"></TD>
+		<TD colspan="2" align="right"><INPUT type="submit" name="submit" value="GetCategorySpecifics"></TD>
 	</TR>
+	
 </TABLE>
 </FORM>
 

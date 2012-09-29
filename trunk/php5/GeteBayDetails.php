@@ -1,7 +1,36 @@
 <?php require_once('./get-common/keys.php') ?>
 <?php require_once('./get-common/eBaySession.php') ?>
-<?php
 
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<TITLE>GeteBayDetails</TITLE>
+</HEAD>
+<BODY>
+<FORM action="GeteBayDetails.php" method="post">
+<TABLE cellpadding="2" border="0">
+	<TR>
+		<TD>Detail Name</TD>
+		<TD>
+          <select name="detailName">
+            <option value="ShippingServiceDetails">ShippingServiceDetails</option>
+			<option value="ShippingCategoryDetails">ShippingCategoryDetails</option>
+            <option value="ReturnPolicyDetails">ReturnPolicyDetails</option>
+          </select>
+        </TD>
+	</TR>
+
+
+	<TR>
+		<TD colspan="2" align="right"><INPUT type="submit" name="submit" value="GeteBayDetails"></TD>
+	</TR>
+</TABLE>
+</FORM>
+
+<?php
+if(isset($_POST['detailName']))
+{
 	ini_set('magic_quotes_gpc', false);    // magic quotes will only confuse things like escaping apostrophe
 	
 	//SiteID must also be set in the Request's XML
@@ -9,9 +38,11 @@
 	//SiteID Indicates the eBay site to associate the call with
 	$siteID = 0;
 	//the call being made:
-$verb = 'GeteBayDetails';
+    $verb = 'GeteBayDetails';
 	$detailLevel ='ReturnAll';
 	$errorLanguage ='en_US';
+	
+	$detailName=$_POST['detailName'];
    
  
 	///Build the request Xml string
@@ -21,7 +52,7 @@ $verb = 'GeteBayDetails';
 	$requestXmlBody .= "<DetailLevel>$detailLevel</DetailLevel>";
 	$requestXmlBody .= "<ErrorLanguage>$errorLanguage</ErrorLanguage>";
 	$requestXmlBody .= "<Version>$compatabilityLevel</Version>";
-	$requestXmlBody .= '<DetailName>ShippingServiceDetails</DetailName>';
+	$requestXmlBody .= "<DetailName>$detailName</DetailName>";
 	$requestXmlBody .= '</GeteBayDetailsRequest>';
 	
 	//Create a new eBay session with all details pulled in from included keys.php
@@ -36,8 +67,6 @@ $verb = 'GeteBayDetails';
 	$responseDoc = new DomDocument();
 	$responseDoc->loadXML($responseXml);
 
-//save the tree to local file
-$responseDoc->save('geteBayDetails.xml');
 	//get any error nodes
 	$errors = $responseDoc->getElementsByTagName('Errors');
 
@@ -57,19 +86,20 @@ $responseDoc->save('geteBayDetails.xml');
 			echo '<BR>', str_replace(">", "&gt;", str_replace("<", "&lt;", $longMsg->item(0)->nodeValue));
 		
 	} else { //no errors
-		
+		$responseDoc->save('geteBayDetails.xml');
+		echo   " <meta   http-equiv=refresh   content=0;url=geteBayDetails.xml> "; 
 		//get results nodes
-	$responses = $responseDoc->getElementsByTagName("GeteBayDetailsResponse");
-		foreach ($responses as $response) {
-			$acks = $response->getElementsByTagName("Ack");
-			$ack   = $acks->item(0)->nodeValue;
-			echo "Ack = $ack <BR />\n";   // Success if successful
-			
-		$shippingServices   = $response->getElementsByTagName("ShippingService");
-		
-		foreach ($shippingServices as $shippingService) {
-		echo "ShippingService = $shippingService->nodeValue <BR />\n";
-			}
+	//$responses = $responseDoc->getElementsByTagName("GeteBayDetailsResponse");
+	//	foreach ($responses as $response) {
+	//		$acks = $response->getElementsByTagName("Ack");
+	//		$ack   = $acks->item(0)->nodeValue;
+	//		echo "Ack = $ack <BR />\n";   // Success if successful
+	//		
+	//	$shippingServices   = $response->getElementsByTagName("ShippingService");
+	//	
+	//	foreach ($shippingServices as $shippingService) {
+	//	echo "ShippingService = $shippingService->nodeValue <BR />\n";
+	//		}
 		
 
 			
