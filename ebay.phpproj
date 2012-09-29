@@ -1,0 +1,186 @@
+"General"
+{
+"ProjectType" = "local"
+"AutoLoadTemplate" = "%s.php;class.%s.php;"
+"IncludeDirs" = ""
+}
+"Configurations"
+{
+    "Local|PHP 5.2"
+    {
+    }
+    "Staging|PHP 5.2"
+    {
+    }
+    "Production|PHP 5.2"
+    {
+    }
+}
+"Files"
+{
+    ".vsphpignore"
+    {
+    "ProjRelPath" = "T"
+    }
+    "CEbay.class.php"
+    {
+    "ProjRelPath" = "T"
+    }
+    "class"
+    {
+    "ProjRelPath" = "T"
+    }
+    "class\\.vsphpignore"
+    {
+    "ProjRelPath" = "T"
+    }
+    "class\\AddItem.php"
+    {
+    "ProjRelPath" = "T"
+    }
+    "class\\CatTree.xml"
+    {
+    "ProjRelPath" = "T"
+    }
+    "class\\eBay API examples.docx"
+    {
+    "ProjRelPath" = "T"
+    }
+    "class\\EndItem.php"
+    {
+    "ProjRelPath" = "T"
+    }
+    "class\\FindProducts.php"
+    {
+    "ProjRelPath" = "T"
+    }
+    "class\\get-common"
+    {
+    "ProjRelPath" = "T"
+    }
+    "class\\get-common\\eBaySession.php"
+    {
+    "ProjRelPath" = "T"
+    }
+    "class\\get-common\\eBaySession.php.bak"
+    {
+    "ProjRelPath" = "T"
+    }
+    "class\\get-common\\keys.php"
+    {
+    "ProjRelPath" = "T"
+    }
+    "class\\get-common\\readme.txt"
+    {
+    "ProjRelPath" = "T"
+    }
+    "class\\get-common\\Utilities.php"
+    {
+    "ProjRelPath" = "T"
+    }
+    "class\\GetCategories.php"
+    {
+    "ProjRelPath" = "T"
+    }
+    "class\\GetCategorySpecifics.php"
+    {
+    "ProjRelPath" = "T"
+    }
+    "class\\GeteBayDetails.php"
+    {
+    "ProjRelPath" = "T"
+    }
+    "class\\geteBayDetails.xml"
+    {
+    "ProjRelPath" = "T"
+    }
+    "class\\GeteBayFeatures.php"
+    {
+    "ProjRelPath" = "T"
+    }
+    "class\\GeteBayFeatures.xml"
+    {
+    "ProjRelPath" = "T"
+    }
+    "class\\GeteBayOfficialTime.php"
+    {
+    "ProjRelPath" = "T"
+    }
+    "class\\GetSuggestedCategories.php"
+    {
+    "ProjRelPath" = "T"
+    }
+    "class\\ReviseItem-HtmlDescription.php"
+    {
+    "ProjRelPath" = "T"
+    }
+    "class\\ReviseItem-Price.php"
+    {
+    "ProjRelPath" = "T"
+    }
+    "class\\Shopping"
+    {
+    "ProjRelPath" = "T"
+    }
+    "class\\Shopping\\DisplayUtils.php"
+    {
+    "ProjRelPath" = "T"
+    }
+    "class\\Shopping\\GetUserProfileFIA.php"
+    {
+    "ProjRelPath" = "T"
+    }
+    "class\\sql"
+    {
+    "ProjRelPath" = "T"
+    }
+    "class\\sql\\eBayBuyRequirement.sql"
+    {
+    "ProjRelPath" = "T"
+    }
+    "class\\sql\\eBayCategories.sql"
+    {
+    "ProjRelPath" = "T"
+    }
+    "class\\sql\\eBayReturnPolicy.sql"
+    {
+    "ProjRelPath" = "T"
+    }
+    "class\\sql\\eBayShippingDetails.sql"
+    {
+    "ProjRelPath" = "T"
+    }
+    "class\\VerifyAddItem.php"
+    {
+    "ProjRelPath" = "T"
+    }
+    "MEbay.class.php"
+    {
+    "ProjRelPath" = "T"
+    }
+    "template"
+    {
+    "ProjRelPath" = "T"
+    }
+    "template\\EbayEdit.php"
+    {
+    "ProjRelPath" = "T"
+    }
+    "template\\EbayList.php"
+    {
+    "ProjRelPath" = "T"
+    }
+    "template\\EbayTabA.php"
+    {
+    "ProjRelPath" = "T"
+    }
+}
+"ProjStartupServices"
+{
+}
+"Globals"
+{
+}
+"References"
+{
+}
