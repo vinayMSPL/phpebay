@@ -27,7 +27,7 @@ class CEbay extends Ctrl {
 		require_once('class/get-common/keys.php');
 		require_once('class/get-common/eBaySession.php');
 		
-		include_once 'class/AddItem/AddItem.php';
+		include_once 'class/AddItem.php';
 				
 //		print "add item";
 		
@@ -41,10 +41,8 @@ class CEbay extends Ctrl {
 		require_once 'class/get-common/keys.php';
 		require_once 'class/get-common/eBaySession.php';		
 		
-		include_once 'class/GeteBayOfficialTime/GeteBayOfficialTime.php';
-		
-//		print "get ebay official time";
-		
+		include_once 'class/GeteBayOfficialTime.php';
+	
 		return ob_get_clean(  );
 	}
 	
@@ -55,13 +53,90 @@ class CEbay extends Ctrl {
 		require_once 'class/get-common/keys.php';
 		require_once 'class/get-common/eBaySession.php';		
 		
-		include_once 'class/GetCategories/GetCategories.php';
-		
-//		print "get categories";
-		
+		include_once 'class/GetCategories.php';
+
 		return ob_get_clean(  );
 	}
-	
+	public function enditem_item(  ) {
+		
+		ob_start(  );
+		
+		require_once 'class/get-common/keys.php';
+		require_once 'class/get-common/eBaySession.php';		
+		
+		include_once 'class/EndItem.php';
+		return ob_get_clean(  );
+	}
+	
+		public function geteBayDetails_item(  ) {
+		
+		ob_start(  );
+		
+		require_once 'class/get-common/keys.php';
+		require_once 'class/get-common/eBaySession.php';		
+		
+		include_once 'class/GeteBayDetails.php';
+		return ob_get_clean(  );
+	}
+		public function getCategorySpecifics_item(  ) {
+		
+		ob_start(  );
+		
+		require_once 'class/get-common/keys.php';
+		require_once 'class/get-common/eBaySession.php';		
+		
+		include_once 'class/GetCategorySpecifics.php';
+	
+		return ob_get_clean(  );
+	}
+
+	public function geteBayFeatures_item(  ) {
+		
+		ob_start(  );
+		
+		require_once 'class/get-common/keys.php';
+		require_once 'class/get-common/eBaySession.php';		
+		
+		include_once 'class/GeteBayFeatures.php';
+
+		return ob_get_clean(  );
+	}
+	
+	public function reviseItemHtmlDescription_item(  ) {
+		
+		ob_start(  );
+		
+		require_once 'class/get-common/keys.php';
+		require_once 'class/get-common/eBaySession.php';		
+		
+		include_once 'class/ReviseItem-HtmlDescription.php';
+		
+		return ob_get_clean(  );
+	}
+	
+	public function reviseItemPrice_item(  ) {
+		
+		ob_start(  );
+		
+		require_once 'class/get-common/keys.php';
+		require_once 'class/get-common/eBaySession.php';		
+		
+		include_once 'class/ReviseItem-Price.php';	
+		return ob_get_clean(  );
+	}
+	
+	public function verifyAddItem_item(  ) {
+		
+		ob_start(  );
+		
+		require_once 'class/get-common/keys.php';
+		require_once 'class/get-common/eBaySession.php';		
+		
+		include_once 'class/VerifyAddItem.php';
+
+		return ob_get_clean(  );
+	}
+	
 	public function get_plg_cfg(  ) {
 		
 		return array( 'plg' => 'ebay', 'tpl' => 'Ebay', 'tbl' => '', 'mod' => 'MEbay', 'id' => 'id', 'csv' => 1, 'act_as' => 1, 'name' => 'Ebay MANAGER', 'tab' => 'Ebay Info' );
