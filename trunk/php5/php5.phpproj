@@ -34,6 +34,10 @@
     {
     "ProjRelPath" = "T"
     }
+    "EndItem.php"
+    {
+    "ProjRelPath" = "T"
+    }
     "FindProducts.php"
     {
     "ProjRelPath" = "T"
@@ -66,6 +70,10 @@
     {
     "ProjRelPath" = "T"
     }
+    "GetCategorySpecifics.php"
+    {
+    "ProjRelPath" = "T"
+    }
     "GeteBayDetails.php"
     {
     "ProjRelPath" = "T"
@@ -74,11 +82,23 @@
     {
     "ProjRelPath" = "T"
     }
+    "GeteBayFeatures.php"
+    {
+    "ProjRelPath" = "T"
+    }
     "GeteBayOfficialTime.php"
     {
     "ProjRelPath" = "T"
     }
     "GetSuggestedCategories.php"
+    {
+    "ProjRelPath" = "T"
+    }
+    "ReviseItem-HtmlDescription.php"
+    {
+    "ProjRelPath" = "T"
+    }
+    "ReviseItem-Price.php"
     {
     "ProjRelPath" = "T"
     }
@@ -111,6 +131,10 @@
     "ProjRelPath" = "T"
     }
     "sql\\eBayShippingDetails.sql"
+    {
+    "ProjRelPath" = "T"
+    }
+    "VerifyAddItem.php"
     {
     "ProjRelPath" = "T"
     }

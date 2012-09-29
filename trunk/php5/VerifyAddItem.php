@@ -8,15 +8,15 @@
 <TITLE>AddItem</TITLE>
 </HEAD>
 <BODY>
-<FORM action="AddItem.php" method="post">
+<FORM action="VerifyAddItem.php" method="post">
 <TABLE cellpadding="2" border="0">
 	<TR>
 		<TD>listingType</TD>
 		<TD>
           <select name="listingType">
             <option value="Chinese">Chinese</option>
+            <option value="Dutch">Dutch</option>
             <option value="FixedPriceItem">Fixed Price Item</option>
-			  <option value="StoresFixedPrice">Fixed Price Item(GTC)</option>
 
           </select>
         </TD>
@@ -26,7 +26,6 @@
 		<TD>
           <select name="primaryCategory">
 	    <option value="14111">Test Category</option>
-		  <option value="171166">171166</option>
             <option value="57889">Boys Athletic Pants</option>
             <option value="57890">Boys Corduroys Pants</option>
             <option value="57891">Boys Jeans Pants</option>
@@ -46,14 +45,10 @@
 	  <TD>listingDuration</TD>
 		<TD>
           <select name="listingDuration">
+            <option value="Days_1">1 day</option>
             <option value="Days_3">3 days</option>
-			  <option value="Days_1">1 day</option>
             <option value="Days_5">5 days</option>
             <option value="Days_7">7 days</option>
-			  <option value="Days_10">10 days</option>
-			  <option value="Days_13">13 days</option>
-			  <option value="Days_30">30 days</option>
-			  <option value="GTC">GTC</option>
           </select>
           (defaults to GTC = 30 days for Store)
         </TD>
@@ -66,16 +61,12 @@
 		<TD>buyItNowPrice</TD>
 		<TD><INPUT type="text" name="buyItNowPrice" value="<?php echo rand(299,599) / 100; ?>"> (set to 0.0 for Store)</TD>
 	</TR>
-	    <TR>
-		<TD>reversePrice</TD>
-		<TD><INPUT type="text" name="reversePrice" value="<?php echo rand(299,599) / 100; ?>"> (set to 0.0 for Store)</TD>
-	</TR>
     <TR>
 		<TD>quantity</TD>
-		<TD><INPUT type="text" name="quantity" value="1"> (must be 1 for Auctions)</TD>
+		<TD><INPUT type="text" name="quantity" value="1"> (must be 1 for Chinese)</TD>
 	</TR>
 	<TR>
-		<TD colspan="2" align="right"><INPUT type="submit" name="submit" value="AddItem"></TD>
+		<TD colspan="2" align="right"><INPUT type="submit" name="submit" value="calculate listing fees"></TD>
 	</TR>
 </TABLE>
 </FORM>
@@ -101,13 +92,11 @@ if(isset($_POST['listingType']))
 	$listingDuration = $_POST['listingDuration'];
 	$startPrice      = $_POST['startPrice'];
 	$buyItNowPrice   = $_POST['buyItNowPrice'];
-	$reversePrice   = $_POST['reversePrice'];
 	$quantity        = $_POST['quantity'];
 	
 	if ($listingType == 'StoresFixedPrice') {
 		$buyItNowPrice = 0.0;   // don't have BuyItNow for SIF
 		$listingDuration = 'GTC';
-		$listingType="FixedPriceItem";
 	}
 	
 	if ($listingType == 'Dutch') {
@@ -119,12 +108,12 @@ if(isset($_POST['listingType']))
 	//SiteID Indicates the eBay site to associate the call with
 	$siteID = 0;
 	//the call being made:
-	$verb = 'AddItem';
+	$verb = 'VerifyAddItem';
 	$detailLevel ='ReturnAll';
 	$errorLanguage ='en_US';
 
-    $site="US";
-    $currency="USD";
+	$site="US";
+	$currency="USD";
 	$country ="US";
 	$location="San Jose, CA";
 	$paymentMethod="PayPal";
@@ -133,7 +122,7 @@ if(isset($_POST['listingType']))
 
 	///Build the request Xml string
 	$requestXmlBody  = '<?xml version="1.0" encoding="utf-8" ?>';
-	$requestXmlBody .= '<AddItemRequest xmlns="urn:ebay:apis:eBLBaseComponents">';
+	$requestXmlBody .= '<VerifyAddItemRequest xmlns="urn:ebay:apis:eBLBaseComponents">';
 	$requestXmlBody .= "<RequesterCredentials><eBayAuthToken>$userToken</eBayAuthToken></RequesterCredentials>";
 	$requestXmlBody .= "<DetailLevel>$detailLevel</DetailLevel>";
 	$requestXmlBody .= "<ErrorLanguage>$errorLanguage</ErrorLanguage>";
@@ -149,51 +138,15 @@ if(isset($_POST['listingType']))
 	//$requestXmlBody .= "<CategoryID>$secondCategory</CategoryID>";
 	//$requestXmlBody .= '</SecondaryCategory>';
 	
-	//Custom  ItemSpecifics
-		$requestXmlBody .= " <ItemSpecifics> ";
-     $requestXmlBody .= " <NameValueList> ";
-      $requestXmlBody .= "  <Name>Gender</Name> ";
-      $requestXmlBody .= "  <Value>Women's</Value> ";
-     $requestXmlBody .= " </NameValueList> ";
-    $requestXmlBody .= "  <NameValueList> ";
-    $requestXmlBody .= "   <Name>Metal</Name> ";
-     $requestXmlBody .= "   <Value>14k Gold</Value> ";
-    $requestXmlBody .= " </NameValueList> ";
-   $requestXmlBody .= "   <NameValueList> ";
-      $requestXmlBody .= "  <Name>Chain Style</Name> ";
-     $requestXmlBody .= "   <Value>Figaro</Value> ";
-    $requestXmlBody .= " </NameValueList> ";
-
-     $requestXmlBody .= " <NameValueList> ";
-    $requestXmlBody .= "    <Name>Chain Length</Name> ";
-     $requestXmlBody .= "   <Value>7 in.</Value> ";
-    $requestXmlBody .= "  </NameValueList> ";
-    $requestXmlBody .= "  <NameValueList> ";
-    $requestXmlBody .= "    <Name>Clasp</Name> ";
-    $requestXmlBody .= "    <Value>Lobster</Value> ";
-   $requestXmlBody .= "  </NameValueList> ";
-	$requestXmlBody .= " </ItemSpecifics> ";
-
-
-	//ListingEnhancement
-	$requestXmlBody .= "<ListingEnhancement>BoldTitle</ListingEnhancement>";
 	$storeCategoryID="12";
 	$storeCategory2ID="11";
 	//Storefront
-    $requestXmlBody .= '<Storefront>';
+	$requestXmlBody .= '<Storefront>';
 	$requestXmlBody .= "<StoreCategoryID>$storeCategoryID</StoreCategoryID>";
 	$requestXmlBody .= "<StoreCategory2ID>$storeCategory2ID</StoreCategory2ID>";
 	$requestXmlBody .= '</Storefront>';
 
-	if($listingType =="Chinese")
-	{
-		$requestXmlBody .= "<BuyItNowPrice currencyID=\"$currency\">$buyItNowPrice</BuyItNowPrice>";
-	}
-		if($listingType =="Chinese")
-	{
-		$requestXmlBody .= "<ReservePrice currencyID=\"$currency\">$reversePrice</ReservePrice>";
-	}
-	
+	$requestXmlBody .= "<BuyItNowPrice currencyID=\"$currency\">$buyItNowPrice</BuyItNowPrice>";
 	$requestXmlBody .= "<Country>$country</Country>";
 	$requestXmlBody .= "<Currency>$currency</Currency>";
 	$requestXmlBody .= "<ListingDuration>$listingDuration</ListingDuration>";
@@ -213,22 +166,22 @@ if(isset($_POST['listingType']))
 	
 	//BuyerRequirement
 	
-	 $requestXmlBody .= "             <BuyerRequirementDetails>";
-     $requestXmlBody .= "               <ShipToRegistrationCountry>false</ShipToRegistrationCountry>";
-      $requestXmlBody .= "              <ZeroFeedbackScore>false</ZeroFeedbackScore>";
-      $requestXmlBody .= "              <LinkedPayPalAccount>false</LinkedPayPalAccount>";
-      $requestXmlBody .= "              <VerifiedUserRequirements>";
-      $requestXmlBody .= "                  <VerifiedUser>false</VerifiedUser>";
-     $requestXmlBody .= "                   <MinimumFeedbackScore>5</MinimumFeedbackScore>";
-    $requestXmlBody .= "                </VerifiedUserRequirements>";
-     $requestXmlBody .= "               <MaximumUnpaidItemStrikesInfo>";
-   $requestXmlBody .= "                     <Count>2</Count>";
-     $requestXmlBody .= "                   <Period>Days_30</Period>";
-    $requestXmlBody .= "                </MaximumUnpaidItemStrikesInfo>";
-    $requestXmlBody .= "               <MaximumBuyerPolicyViolations>";
-      $requestXmlBody .= "                  <Count>4</Count>";
-     $requestXmlBody .= "                   <Period>Days_30</Period>";
-     $requestXmlBody .= "               </MaximumBuyerPolicyViolations>";
+	$requestXmlBody .= "             <BuyerRequirementDetails>";
+	$requestXmlBody .= "               <ShipToRegistrationCountry>false</ShipToRegistrationCountry>";
+	$requestXmlBody .= "              <ZeroFeedbackScore>false</ZeroFeedbackScore>";
+	$requestXmlBody .= "              <LinkedPayPalAccount>false</LinkedPayPalAccount>";
+	$requestXmlBody .= "              <VerifiedUserRequirements>";
+	$requestXmlBody .= "                  <VerifiedUser>false</VerifiedUser>";
+	$requestXmlBody .= "                   <MinimumFeedbackScore>5</MinimumFeedbackScore>";
+	$requestXmlBody .= "                </VerifiedUserRequirements>";
+	$requestXmlBody .= "               <MaximumUnpaidItemStrikesInfo>";
+	$requestXmlBody .= "                     <Count>2</Count>";
+	$requestXmlBody .= "                   <Period>Days_30</Period>";
+	$requestXmlBody .= "                </MaximumUnpaidItemStrikesInfo>";
+	$requestXmlBody .= "               <MaximumBuyerPolicyViolations>";
+	$requestXmlBody .= "                  <Count>4</Count>";
+	$requestXmlBody .= "                   <Period>Days_30</Period>";
+	$requestXmlBody .= "               </MaximumBuyerPolicyViolations>";
 	$requestXmlBody .= "           </BuyerRequirementDetails>";
 	
 	//PictureDetails
@@ -237,7 +190,7 @@ if(isset($_POST['listingType']))
 	$GalleryURL ="http://i1.sandbox.ebayimg.com/03/i/00/3e/5f/cc_12.JPG";
 	$PictureURL ="http://i1.sandbox.ebayimg.com/03/i/00/3d/9b/37_1.JPG?set_id=8800005007";
 	
-	 $requestXmlBody .= "      <PictureDetails>";
+	$requestXmlBody .= "      <PictureDetails>";
 	$requestXmlBody .= "     <GalleryType>$GalleryType</GalleryType>";
 	$requestXmlBody .= "     <GalleryURL>$GalleryURL</GalleryURL>";
 	$requestXmlBody .= "    <PictureURL>$PictureURL</PictureURL>";
@@ -261,90 +214,89 @@ if(isset($_POST['listingType']))
 	
 	
 	//flat shipping service
-	 $requestXmlBody .=	    "<ShippingDetails>";
-    $requestXmlBody .=	   "<ShippingType>Flat</ShippingType>";
-    $requestXmlBody .=	   "<ShippingServiceOptions>";
-    $requestXmlBody .=	     "<ShippingServicePriority>1</ShippingServicePriority>";
-    $requestXmlBody .=	   "<ShippingService>USPSMedia</ShippingService>";
-    $requestXmlBody .=	    "<ShippingServiceCost>2.50</ShippingServiceCost>";
-	$requestXmlBody .=	    "<ShippingServiceAdditionalCost>1.50</ShippingServiceAdditionalCost>";
-    $requestXmlBody .=	   "</ShippingServiceOptions>";
-    $requestXmlBody .="</ShippingDetails>";
+	$requestXmlBody .=	    "<ShippingDetails>";
+	$requestXmlBody .=	   "<ShippingType>Flat</ShippingType>";
+	$requestXmlBody .=	   "<ShippingServiceOptions>";
+	$requestXmlBody .=	     "<ShippingServicePriority>1</ShippingServicePriority>";
+	$requestXmlBody .=	   "<ShippingService>USPSMedia</ShippingService>";
+	$requestXmlBody .=	    "<ShippingServiceCost>2.50</ShippingServiceCost>";
+	$requestXmlBody .=	   "</ShippingServiceOptions>";
+	$requestXmlBody .="</ShippingDetails>";
 	//calculate shipping service
-	 //<ShippingDetails>
-  //    <CalculatedShippingRate>
-  //      <OriginatingPostalCode>95125</OriginatingPostalCode>
-  //      <PackageDepth unit="inches">2</PackageDepth>
-  //      <PackageLength unit="inches">10</PackageLength>
-  //      <PackageWidth unit="inches">7</PackageWidth>
-  //      <PackagingHandlingCosts currencyID="USD">0.0</PackagingHandlingCosts>
-  //      <ShippingPackage>PackageThickEnvelope</ShippingPackage>
-  //      <WeightMajor unit="lbs">2</WeightMajor>
-  //      <WeightMinor unit="oz">0</WeightMinor>
-  //    </CalculatedShippingRate>
-  //    <ShippingServiceOptions>
-  //      <ShippingService>USPSMedia</ShippingService>
-  //      <ShippingServicePriority>1</ShippingServicePriority>
-  //    </ShippingServiceOptions>
-  //    <ShippingServiceOptions>
-  //      <ShippingService>USPSPriority</ShippingService>
-  //      <ShippingServicePriority>2</ShippingServicePriority>
-  //    </ShippingServiceOptions>
-  //  </ShippingDetails>
+	//<ShippingDetails>
+	//    <CalculatedShippingRate>
+	//      <OriginatingPostalCode>95125</OriginatingPostalCode>
+	//      <PackageDepth unit="inches">2</PackageDepth>
+	//      <PackageLength unit="inches">10</PackageLength>
+	//      <PackageWidth unit="inches">7</PackageWidth>
+	//      <PackagingHandlingCosts currencyID="USD">0.0</PackagingHandlingCosts>
+	//      <ShippingPackage>PackageThickEnvelope</ShippingPackage>
+	//      <WeightMajor unit="lbs">2</WeightMajor>
+	//      <WeightMinor unit="oz">0</WeightMinor>
+	//    </CalculatedShippingRate>
+	//    <ShippingServiceOptions>
+	//      <ShippingService>USPSMedia</ShippingService>
+	//      <ShippingServicePriority>1</ShippingServicePriority>
+	//    </ShippingServiceOptions>
+	//    <ShippingServiceOptions>
+	//      <ShippingService>USPSPriority</ShippingService>
+	//      <ShippingServicePriority>2</ShippingServicePriority>
+	//    </ShippingServiceOptions>
+	//  </ShippingDetails>
 	
 	
-	   // <ShippingDetails>
-    //  <CalculatedShippingRate>
-    //    <OriginatingPostalCode>95125</OriginatingPostalCode>
-    //    <PackageDepth measurementSystem="English" unit="inches">6</PackageDepth>
-    //    <PackageLength measurementSystem="English" unit="inches">7</PackageLength>
-    //    <PackageWidth measurementSystem="English" unit="inches">7</PackageWidth>
-    //    <PackagingHandlingCosts currencyID="USD">0.0</PackagingHandlingCosts>
-    //    <ShippingIrregular>false</ShippingIrregular>
-    //    <ShippingPackage>PackageThickEnvelope</ShippingPackage>
-    //    <WeightMajor measurementSystem="English" unit="lbs">2</WeightMajor>
-    //    <WeightMinor measurementSystem="English" unit="oz">0</WeightMinor>
-    //  </CalculatedShippingRate>
-    //  <PaymentInstructions>Payment must be received within 7 business days of purchase.</PaymentInstructions>
-    //  <SalesTax>
-    //    <SalesTaxPercent>8.75</SalesTaxPercent>
-    //    <SalesTaxState>CA</SalesTaxState>
-    //    <ShippingIncludedInTax>false</ShippingIncludedInTax>
-    //  </SalesTax>
-    //  <ShippingServiceOptions>
-    //    <ShippingService>USPSPriority</ShippingService>
-    //    <ShippingServicePriority>1</ShippingServicePriority>
-    //    <ExpeditedService>false</ExpeditedService>
-    //    <ShippingTimeMin>2</ShippingTimeMin>
-    //    <ShippingTimeMax>3</ShippingTimeMax>
-    //    <FreeShipping>true</FreeShipping>
-    //  </ShippingServiceOptions>
-    //  <ShippingServiceOptions>
-    //    <ShippingService>UPSGround</ShippingService>
-    //    <ShippingServicePriority>2</ShippingServicePriority>
-    //    <ExpeditedService>false</ExpeditedService>
-    //    <ShippingTimeMin>1</ShippingTimeMin>
-    //    <ShippingTimeMax>6</ShippingTimeMax>
-    //  </ShippingServiceOptions>
-    //  <ShippingServiceOptions>
-    //    <ShippingService>UPSNextDay</ShippingService>
-    //    <ShippingServicePriority>3</ShippingServicePriority>
-    //    <ExpeditedService>true</ExpeditedService>
-    //    <ShippingTimeMin>1</ShippingTimeMin>
-    //    <ShippingTimeMax>1</ShippingTimeMax>
-    //  </ShippingServiceOptions>
-    //  <ShippingType>Calculated</ShippingType>
-    //  <ThirdPartyCheckout>false</ThirdPartyCheckout>
-    //  <TaxTable />
+	// <ShippingDetails>
+	//  <CalculatedShippingRate>
+	//    <OriginatingPostalCode>95125</OriginatingPostalCode>
+	//    <PackageDepth measurementSystem="English" unit="inches">6</PackageDepth>
+	//    <PackageLength measurementSystem="English" unit="inches">7</PackageLength>
+	//    <PackageWidth measurementSystem="English" unit="inches">7</PackageWidth>
+	//    <PackagingHandlingCosts currencyID="USD">0.0</PackagingHandlingCosts>
+	//    <ShippingIrregular>false</ShippingIrregular>
+	//    <ShippingPackage>PackageThickEnvelope</ShippingPackage>
+	//    <WeightMajor measurementSystem="English" unit="lbs">2</WeightMajor>
+	//    <WeightMinor measurementSystem="English" unit="oz">0</WeightMinor>
+	//  </CalculatedShippingRate>
+	//  <PaymentInstructions>Payment must be received within 7 business days of purchase.</PaymentInstructions>
+	//  <SalesTax>
+	//    <SalesTaxPercent>8.75</SalesTaxPercent>
+	//    <SalesTaxState>CA</SalesTaxState>
+	//    <ShippingIncludedInTax>false</ShippingIncludedInTax>
+	//  </SalesTax>
+	//  <ShippingServiceOptions>
+	//    <ShippingService>USPSPriority</ShippingService>
+	//    <ShippingServicePriority>1</ShippingServicePriority>
+	//    <ExpeditedService>false</ExpeditedService>
+	//    <ShippingTimeMin>2</ShippingTimeMin>
+	//    <ShippingTimeMax>3</ShippingTimeMax>
+	//    <FreeShipping>true</FreeShipping>
+	//  </ShippingServiceOptions>
+	//  <ShippingServiceOptions>
+	//    <ShippingService>UPSGround</ShippingService>
+	//    <ShippingServicePriority>2</ShippingServicePriority>
+	//    <ExpeditedService>false</ExpeditedService>
+	//    <ShippingTimeMin>1</ShippingTimeMin>
+	//    <ShippingTimeMax>6</ShippingTimeMax>
+	//  </ShippingServiceOptions>
+	//  <ShippingServiceOptions>
+	//    <ShippingService>UPSNextDay</ShippingService>
+	//    <ShippingServicePriority>3</ShippingServicePriority>
+	//    <ExpeditedService>true</ExpeditedService>
+	//    <ShippingTimeMin>1</ShippingTimeMin>
+	//    <ShippingTimeMax>1</ShippingTimeMax>
+	//  </ShippingServiceOptions>
+	//  <ShippingType>Calculated</ShippingType>
+	//  <ThirdPartyCheckout>false</ThirdPartyCheckout>
+	//  <TaxTable />
 	//  <InternationalShippingServiceOption>
-    //  <ShippingService>UK_RoyalMailAirmailInternational</ShippingService>
-    //  <ShippingServiceCost currencyID="GBP">5.00</ShippingServiceCost>
-    //  <ShippingServiceAdditionalCost currencyID="GBP">0</ShippingServiceAdditionalCost>
-    //  <!-- You need to begin the count from 1 for international shipping services -->
-    //  <ShippingServicePriority>1</ShippingServicePriority>
-    //  <ShipToLocation>Worldwide</ShipToLocation>
-      //</InternationalShippingServiceOption>
-    //</ShippingDetails>
+	//  <ShippingService>UK_RoyalMailAirmailInternational</ShippingService>
+	//  <ShippingServiceCost currencyID="GBP">5.00</ShippingServiceCost>
+	//  <ShippingServiceAdditionalCost currencyID="GBP">0</ShippingServiceAdditionalCost>
+	//  <!-- You need to begin the count from 1 for international shipping services -->
+	//  <ShippingServicePriority>1</ShippingServicePriority>
+	//  <ShipToLocation>Worldwide</ShipToLocation>
+	//</InternationalShippingServiceOption>
+	//</ShippingDetails>
 	
 	
 	$requestXmlBody .="<DispatchTimeMax>3</DispatchTimeMax>";
@@ -352,26 +304,27 @@ if(isset($_POST['listingType']))
 	$UUID =$Facet_Utility->gen_uuid();
 	$requestXmlBody .="<UUID>$UUID</UUID>";
 
-//$ProductID="228742";
+	//$ProductID="228742";
 	$ProductReferenceID="62923188";
 	//ProductListingDetails
 	//$requestXmlBody .="<ProductListingDetails>";
 
-   	//$requestXmlBody .=" <IncludeStockPhotoURL>true</IncludeStockPhotoURL>";
-   	//$requestXmlBody .=" <ProductReferenceID>$ProductReferenceID</ProductReferenceID>";
-    //$requestXmlBody .="  <ProductID>$ProductID</ProductID>";
+	//$requestXmlBody .=" <IncludeStockPhotoURL>true</IncludeStockPhotoURL>";
+	//$requestXmlBody .=" <ProductReferenceID>$ProductReferenceID</ProductReferenceID>";
+	//$requestXmlBody .="  <ProductID>$ProductID</ProductID>";
 	//$requestXmlBody .="  </ProductListingDetails>";
 	
 	//DiscountPriceInfo
-//	$requestXmlBody .="<DiscountPriceInfo>";
-  // 	$requestXmlBody .="<MinimumAdvertisedPrice currencyID=\"USD\">0.1</MinimumAdvertisedPrice>";
-//	$requestXmlBody .="<MinimumAdvertisedPriceExposure>PreCheckout</MinimumAdvertisedPriceExposure>";
-//	$requestXmlBody .="<OriginalRetailPrice currencyID=\"USD\">0.2</OriginalRetailPrice>";
-//	$requestXmlBody .="<PricingTreatment>MAP</PricingTreatment>";
- //  	$requestXmlBody .="</DiscountPriceInfo>";
+	//$requestXmlBody .="<DiscountPriceInfo>";
+	//$requestXmlBody .="<MinimumAdvertisedPrice currencyID=\"USD\">0.1</MinimumAdvertisedPrice>";
+	//$requestXmlBody .="<MinimumAdvertisedPriceExposure>PreCheckout</MinimumAdvertisedPriceExposure>";
+	//$requestXmlBody .="<OriginalRetailPrice currencyID=\"USD\">0.2</OriginalRetailPrice>";
+	//$requestXmlBody .="<PricingTreatment>MAP</PricingTreatment>";
+	//
+	//$requestXmlBody .="</DiscountPriceInfo>";
 	
 	$requestXmlBody .= '</Item>';
-	$requestXmlBody .= '</AddItemRequest>';
+	$requestXmlBody .= '</VerifyAddItemRequest>';
 	
 	//Create a new eBay session with all details pulled in from included keys.php
 	$session = new eBaySession($userToken, $devID, $appID, $certID, $serverUrl, $compatabilityLevel, $siteID, $verb);
@@ -406,7 +359,7 @@ if(isset($_POST['listingType']))
 	} else { //no errors
 		
 		//get results nodes
-		$responses = $responseDoc->getElementsByTagName("AddItemResponse");
+		$responses = $responseDoc->getElementsByTagName("VerifyAddItemResponse");
 		foreach ($responses as $response) {
 			$acks = $response->getElementsByTagName("Ack");
 			$ack   = $acks->item(0)->nodeValue;
