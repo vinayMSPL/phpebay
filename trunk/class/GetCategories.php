@@ -1,7 +1,7 @@
 <?php set_time_limit(1500) //increase time-out to 25 mins as downloading and parsing the tree may take a while ?>
 
-<?php require_once('./get-common/keys.php') ?>
-<?php require_once('./get-common/eBaySession.php') ?>
+<?php require_once('get-common/keys.php') ?>
+<?php require_once('get-common/eBaySession.php') ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <HTML>
 <HEAD>
