@@ -8,7 +8,7 @@
 <TITLE>AddItem</TITLE>
 </HEAD>
 <BODY>
-<FORM action="EndItem.php" method="post">
+<FORM action="ebay_EndItem.php" method="post">
 <TABLE cellpadding="2" border="0">
 
     <TR>

@@ -8,7 +8,7 @@
 <TITLE>AddItem</TITLE>
 </HEAD>
 <BODY>
-<FORM action="GeteBayFeatures.php" method="post">
+<FORM action="ebay_GeteBayFeatures.php" method="post">
 <TABLE cellpadding="2" border="0">
 
     <TR>

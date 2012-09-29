@@ -8,7 +8,7 @@
 <TITLE>Revise Item's Descriptions and Quantities(Intial inventory)</TITLE>
 </HEAD>
 <BODY>
-<FORM action="ReviseItem-HtmlDescription.php" method="post">
+<FORM action="ebay_ReviseItem-HtmlDescription.php" method="post">
 <TABLE cellpadding="2" border="0">
 
     <TR>

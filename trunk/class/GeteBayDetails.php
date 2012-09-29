@@ -8,7 +8,7 @@
 <TITLE>GeteBayDetails</TITLE>
 </HEAD>
 <BODY>
-<FORM action="GeteBayDetails.php" method="post">
+<FORM action="ebay_GeteBayDetails.php" method="post">
 <TABLE cellpadding="2" border="0">
 	<TR>
 		<TD>Detail Name</TD>

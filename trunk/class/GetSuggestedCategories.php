@@ -7,7 +7,7 @@
 <TITLE>GetSuggestedCategories</TITLE>
 </HEAD>
 <BODY>
-<FORM action="GetSuggestedCategories.php" method="post">
+<FORM action="ebay_GetSuggestedCategories.php" method="post">
 <TABLE cellpadding="2" border="0">
 	<TR>
 		<TD>Query:</TD>

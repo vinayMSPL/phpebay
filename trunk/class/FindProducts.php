@@ -7,7 +7,7 @@
 <TITLE>FindProducts</TITLE>
 </HEAD>
 <BODY>
-<FORM action="FindProducts.php" method="post">
+<FORM action="ebay_FindProducts.php" method="post">
 <TABLE cellpadding="2" border="0">
 	<TR>
 		<TD>ProductReferenceID(EPID):</TD>
