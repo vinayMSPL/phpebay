@@ -8,7 +8,7 @@
 <TITLE>GetCategorySpecifics</TITLE>
 </HEAD>
 <BODY>
-<FORM action="GetCategorySpecifics.php" method="post">
+<FORM action="ebay_GetCategorySpecifics.php" method="post">
 <TABLE cellpadding="2" border="0">
     <TR>
 		<TD>CategoryId</TD>

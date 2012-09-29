@@ -8,7 +8,7 @@
 <TITLE>Revise Item's Price</TITLE>
 </HEAD>
 <BODY>
-<FORM action="ReviseItem-Price.php" method="post">
+<FORM action="ebay_ReviseItem-Price.php" method="post">
 <TABLE cellpadding="2" border="0">
 
     <TR>

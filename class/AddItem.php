@@ -8,14 +8,15 @@
 <TITLE>AddItem</TITLE>
 </HEAD>
 <BODY>
-<FORM action="AddItem.php" method="post">
+<FORM action="ebay_AddItem.php" method="post">
 <TABLE cellpadding="2" border="0">
 	<TR>
 		<TD>listingType</TD>
 		<TD>
           <select name="listingType">
-            <option value="Chinese">Chinese</option>
+         
             <option value="FixedPriceItem">Fixed Price Item</option>
+			   <option value="Chinese">Chinese</option>
 			  <option value="StoresFixedPrice">Fixed Price Item(GTC)</option>
 
           </select>

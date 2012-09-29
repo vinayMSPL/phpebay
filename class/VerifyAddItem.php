@@ -8,7 +8,7 @@
 <TITLE>AddItem</TITLE>
 </HEAD>
 <BODY>
-<FORM action="VerifyAddItem.php" method="post">
+<FORM action="ebay_VerifyAddItem.php" method="post">
 <TABLE cellpadding="2" border="0">
 	<TR>
 		<TD>listingType</TD>
