@@ -82,6 +82,14 @@
     {
     "ProjRelPath" = "T"
     }
+    "class\\GetCategoryFeatures.php"
+    {
+    "ProjRelPath" = "T"
+    }
+    "class\\GetCategoryFeatures.xml"
+    {
+    "ProjRelPath" = "T"
+    }
     "class\\GetCategorySpecifics.php"
     {
     "ProjRelPath" = "T"
@@ -94,15 +102,15 @@
     {
     "ProjRelPath" = "T"
     }
-    "class\\GeteBayFeatures.php"
-    {
-    "ProjRelPath" = "T"
-    }
-    "class\\GeteBayFeatures.xml"
-    {
-    "ProjRelPath" = "T"
-    }
     "class\\GeteBayOfficialTime.php"
+    {
+    "ProjRelPath" = "T"
+    }
+    "class\\GetOrders.php"
+    {
+    "ProjRelPath" = "T"
+    }
+    "class\\GetSellerEvents.php"
     {
     "ProjRelPath" = "T"
     }

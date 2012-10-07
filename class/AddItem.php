@@ -27,7 +27,7 @@
 		<TD>
           <select name="primaryCategory">
 	    <option value="14111">Test Category</option>
-		  <option value="171166">171166</option>
+		  <option value="171166">171166(For Testing Condtions)</option>
             <option value="57889">Boys Athletic Pants</option>
             <option value="57890">Boys Corduroys Pants</option>
             <option value="57891">Boys Jeans Pants</option>
@@ -35,6 +35,21 @@
           </select>
         </TD>
 	</TR>
+	    <TR>
+		<TD>Condition</TD>
+		<TD>
+          <select name="conditionId">
+		  <option value=""></option>
+	    <option value="1000">Brand New</option>
+		  <option value="2750">Like New</option>
+            <option value="4000">Very Good</option>
+            <option value="5000">Good</option>
+            <option value="6000">Acceptable</option>
+
+          </select>
+        </TD>
+	</TR>
+	
     <TR>
 		<TD>itemTitle</TD>
 		<TD><INPUT type="text" name="itemTitle" value="TEST IN SANDBOX BEFORE PROD - DO NOT BID" size=30></TD>
@@ -175,6 +190,13 @@ if(isset($_POST['listingType']))
    $requestXmlBody .= "  </NameValueList> ";
 	$requestXmlBody .= " </ItemSpecifics> ";
 
+
+    //Condtion
+	$conditionId = $_POST['conditionId'];
+	if($primaryCategory=="171166" && $conditionId!='')
+	{
+		$requestXmlBody .= "<ConditionID>$conditionId</ConditionID>";
+	}
 
 	//ListingEnhancement
 	$requestXmlBody .= "<ListingEnhancement>BoldTitle</ListingEnhancement>";
