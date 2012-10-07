@@ -8,16 +8,25 @@
 <TITLE>AddItem</TITLE>
 </HEAD>
 <BODY>
-<FORM action="ebay_GeteBayFeatures.php" method="post">
+<FORM action="GetCategoryFeatures.php" method="post">
 <TABLE cellpadding="2" border="0">
 
     <TR>
 		<TD>CategoryID:</TD>
-		<TD><INPUT type="text" name="categoryId" value="57889"  size=30></TD>
+		<TD><INPUT type="text" name="categoryId" value="171166"  size=30></TD>
 	</TR>
-   
+    	<TR>
+		<TD>FeatureIDCodeType</TD>
+		<TD>
+          <select name="featureIDCodeType">
+            <option value="ItemSpecificsEnabled">ItemSpecificsEnabled</option>
+            <option value="ConditionEnabled">ConditionEnabled</option>
+            <option value="ConditionValues">ConditionValues</option>
+			          </select>
+        </TD>
+	</TR>
 	<TR>
-		<TD colspan="2" align="right"><INPUT type="submit" name="submit" value="GetCategorySpecifics"></TD>
+		<TD colspan="2" align="right"><INPUT type="submit" name="submit" value="GetCategoryFeatures"></TD>
 	</TR>
 	
 </TABLE>
@@ -30,6 +39,7 @@ if(isset($_POST['categoryId']))
 	ini_set('magic_quotes_gpc', false);    // magic quotes will only confuse things like escaping apostrophe
 	//Get the item entered
 	$categoryId     = $_POST['categoryId'];
+	$featureIDCodeType     = $_POST['featureIDCodeType'];
 	
 	
 	//SiteID must also be set in the Request's XML
@@ -54,8 +64,9 @@ if(isset($_POST['categoryId']))
 	$requestXmlBody .= "<Version>$compatabilityLevel</Version>";
 	if(!empty ($categoryId))
 	{
-		$requestXmlBody .= " <CategoryID>$categoryId</CategoryID>>";
+		$requestXmlBody .= " <CategoryID>$categoryId</CategoryID>";
 	}
+	$requestXmlBody .= "<FeatureID>$featureIDCodeType</FeatureID>";
 	$requestXmlBody .= '</GetCategoryFeaturesRequest  >';
 	
 	//Create a new eBay session with all details pulled in from included keys.php
@@ -90,9 +101,9 @@ if(isset($_POST['categoryId']))
 		
 	} else { //no errors
 		//save the tree to local file
-		$responseDoc->save('GeteBayFeatures.xml');
+		$responseDoc->save('GetCategoryFeatures.xml');
 
-		echo   " <meta   http-equiv=refresh   content=0;url=GeteBayFeatures.xml> "; 
+		echo   " <meta   http-equiv=refresh   content=0;url=GetCategoryFeatures.xml> "; 
 		//get results nodes
 		$responses = $responseDoc->getElementsByTagName("GetCategoryFeaturesResponse");
 		foreach ($responses as $response) {
@@ -101,28 +112,25 @@ if(isset($_POST['categoryId']))
 			echo "Ack = $ack <BR />\n";   // Success if successful
 			
 			
-			/*
-			$endTimes  = $response->getElementsByTagName("EndTime");
-			$endTime   = $endTimes->item(0)->nodeValue;
-			echo "endTime = $endTime <BR />\n";
+			
+	/*		$categories  = $response->getElementsByTagName("Category");
+			if(count($categories)>0)
+			{
+				//print ConditionEnabled
+				$conditionEnabled = $categories->item(0)->getElementsByTagName("ConditionEnabled")->item(0)->nodeValue;
+				echo "ConditionEnabled =$conditionEnabled  <BR />\n";
+				//print conditions
+				$conditions = $categories->item(0)->getElementsByTagName("ConditionValues")->item(0)->getElementsByTagName("Condition");
+				foreach($conditions as $condition) {
+					$id =$condition->getElementsByTagName('ID')->item(0)->nodeValue;
+					$displayName =$condition->getElementsByTagName('DisplayName')->item(0)->nodeValue;
+					echo "ID =$id  <BR />\n";
+					echo "DisplayName = $displayName <BR />\n";
+				}
+			}*/
+			//print item
 
-			$feeNodes = $responseDoc->getElementsByTagName('Fee');
-			foreach($feeNodes as $feeNode) {
-				$feeNames = $feeNode->getElementsByTagName("Name");
-				if ($feeNames->item(0)) {
-					$feeName = $feeNames->item(0)->nodeValue;
-					$fees = $feeNode->getElementsByTagName('Fee');  // get Fee amount nested in Fee
-					$fee = $fees->item(0)->nodeValue;
-					if ($fee > 0.0) {
-						if ($feeName == 'ListingFee') {
-							printf("<B>$feeName : %.2f </B><BR>\n", $fee); 
-						} else {
-							printf("$feeName : %.2f <BR>\n", $fee);
-						}      
-					}  // if $fee > 0
-				} // if feeName
-			} // foreach $feeNode
-			*/
+			
 		} // foreach response
 
 		

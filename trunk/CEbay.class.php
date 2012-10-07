@@ -90,14 +90,14 @@ class CEbay extends Ctrl {
 		return ob_get_clean(  );
 	}
 
-	public function geteBayFeatures_item(  ) {
+	public function GetCategoryFeatures_item(  ) {
 		
 		ob_start(  );
 		
 		require_once 'class/get-common/keys.php';
 		require_once 'class/get-common/eBaySession.php';		
 		
-		include_once 'class/GeteBayFeatures.php';
+		include_once 'class/GetCategoryFeatures.php';
 
 		return ob_get_clean(  );
 	}
@@ -136,6 +136,31 @@ class CEbay extends Ctrl {
 
 		return ob_get_clean(  );
 	}
+	
+	public function getSellerEvents_item(  ) {
+		
+		ob_start(  );
+		
+		require_once 'class/get-common/keys.php';
+		require_once 'class/get-common/eBaySession.php';		
+		
+		include_once 'class/GetSellerEvents.php';
+
+		return ob_get_clean(  );
+	}
+	
+	public function getOrders_item(  ) {
+		
+		ob_start(  );
+		
+		require_once 'class/get-common/keys.php';
+		require_once 'class/get-common/eBaySession.php';		
+		
+		include_once 'class/GetOrders.php';
+
+		return ob_get_clean(  );
+	}
+	
 	
 	public function get_plg_cfg(  ) {
 		
