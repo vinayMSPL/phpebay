@@ -42,6 +42,10 @@
     {
     "ProjRelPath" = "T"
     }
+    "class\\CompleteSale.php"
+    {
+    "ProjRelPath" = "T"
+    }
     "class\\eBay API examples.docx"
     {
     "ProjRelPath" = "T"
@@ -115,6 +119,10 @@
     "ProjRelPath" = "T"
     }
     "class\\GetSuggestedCategories.php"
+    {
+    "ProjRelPath" = "T"
+    }
+    "class\\ReviseCheckoutStatus.php"
     {
     "ProjRelPath" = "T"
     }

@@ -5,67 +5,88 @@
 <HTML>
 <HEAD>
 <META http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-<TITLE>GetOrders</TITLE>
+<TITLE>Revise CheckoutStatus</TITLE>
 </HEAD>
 <BODY>
-<FORM action="ebay_GetOrders.php" method="post">
+<FORM action="ebay_ReviseCheckoutStatus.php" method="post">
 <TABLE cellpadding="2" border="0">
-	<TR>
-		<TD>item modification time from:</TD>
-		<TD>
+<tr>
+<td colspan="2">
+step 1: <a href="http://tim7.thehub56.com/ebay_additem.php">Add an item(retrieve itemID)</a><br/>
+setp 2:  simulate  as a buyer to login and purchase this item(manually)<br/>
+setp 3:<a href="http://tim7.thehub56.com/ebay_getOrders.php">Get the Orders(retrieve OrderLineItemID)</a><br>
+setp 4: revise CheckoutStatus in the form below<br>
+</td>
+</tr>
+    <TR>
+		<TD>Order LineItem ID </TD>
+		<TD><INPUT type="text" name="orderLineItemID"  value="110106730975-26981292001" size=30/></TD>
 
-         <?php 
-         echo  gmDate("Y-m-d\TH:i:s\Z",time()-13*24*60*60); 
-         ?>
-        </TD>
+       <TR>
+		<TD>Adjust mentAmount</TD>
+		<TD><INPUT type="text" name="adjustmentAmount"  value="2.00"/></TD>
 	</TR>
     <TR>
-		<TD>item modification time to:</TD>
-		<TD>
-
-		<?php echo gmDate("Y-m-d\TH:i:s\Z"); ?>
-        </TD>
+		<TD>Amount Paid</TD>
+		<TD><INPUT type="text" name="amountPaid" /></TD>
 	</TR>
-
+	  <TR>
+		<TD>Checkout Status:</TD>
+		<TD>set completed</TD>
+	</TR>
 	<TR>
-
-		<TD colspan="2" align="right"><INPUT type="submit" name="submit" value="GetOrders"></TD>
+		<TD colspan="2" align="right"><INPUT type="submit" name="submit" value="Revise CheckoutStatus(Completed)"></TD>
 	</TR>
 </TABLE>
 </FORM>
 
 
 <?php
-if(isset($_POST['submit']))
+if(isset($_POST['orderLineItemID']))
 {
 	ini_set('magic_quotes_gpc', false);    // magic quotes will only confuse things like escaping apostrophe
-
+	//Get the item entered
+	$orderLineItemID     = $_POST['orderLineItemID'];
+	$adjustmentAmount     = $_POST['adjustmentAmount'];
+	$amountPaid     = $_POST['amountPaid'];
+	
+	
 	
 	//SiteID must also be set in the Request's XML
 	//SiteID = 0  (US) - UK = 3, Canada = 2, Australia = 15, ....
 	//SiteID Indicates the eBay site to associate the call with
 	$siteID = 0;
 	//the call being made:
-	$verb = 'GetOrders';
+	$verb = 'ReviseCheckoutStatus';
 	$detailLevel ='ReturnAll';
 	$errorLanguage ='en_US';
 
 	$site="US";
 	$currency="USD";
 	$country ="US";
-	$modTimeTo=gmDate("Y-m-d\TH:i:s\Z");
-	$modTimeFrom =gmDate("Y-m-d\TH:i:s\Z",time()-13*24*60*60);
+
 
 	///Build the request Xml string
 	$requestXmlBody  = '<?xml version="1.0" encoding="utf-8" ?>';
-	$requestXmlBody .= '<GetOrdersRequest xmlns="urn:ebay:apis:eBLBaseComponents">';
+	$requestXmlBody .= '<ReviseCheckoutStatusRequest   xmlns="urn:ebay:apis:eBLBaseComponents">';
 	$requestXmlBody .= "<RequesterCredentials><eBayAuthToken>$userToken</eBayAuthToken></RequesterCredentials>";
 	$requestXmlBody .= "<DetailLevel>$detailLevel</DetailLevel>";
 	$requestXmlBody .= "<ErrorLanguage>$errorLanguage</ErrorLanguage>";
 	$requestXmlBody .= "<Version>$compatabilityLevel</Version>";
-	$requestXmlBody .= "<ModTimeFrom>$modTimeFrom</ModTimeFrom>";
-	$requestXmlBody .= "<ModTimeTo>$modTimeTo</ModTimeTo>";
-	$requestXmlBody .= '</GetOrdersRequest>';
+
+
+	$requestXmlBody .= "<AdjustmentAmount>$adjustmentAmount</AdjustmentAmount> ";
+	$requestXmlBody .= "<AmountPaid currencyID =\"USD\">$amountPaid</AmountPaid> ";
+	$requestXmlBody .= "<OrderLineItemID>$orderLineItemID</OrderLineItemID>";
+	$requestXmlBody .= "<OrderID>$orderLineItemID</OrderID>";
+	$requestXmlBody .= "<PaymentMethodUsed>MOCC</PaymentMethodUsed>";
+
+ 	$requestXmlBody .= "<CheckoutStatus>Complete</CheckoutStatus> ";
+
+	$requestXmlBody .= '</ReviseCheckoutStatusRequest>';
+	
+	
+
 
 	//Create a new eBay session with all details pulled in from included keys.php
 	$session = new eBaySession($userToken, $devID, $appID, $certID, $serverUrl, $compatabilityLevel, $siteID, $verb);
@@ -98,56 +119,19 @@ if(isset($_POST['submit']))
 			echo '<BR>', str_replace(">", "&gt;", str_replace("<", "&lt;", $longMsg->item(0)->nodeValue));
 		
 	} else { //no errors
-		//save the tree to local file
-		$responseDoc->save('GetOrders.xml');
-
-		echo   " <meta   http-equiv=refresh   content=0;url=GetOrders.xml> "; 
+		
+		
 		//get results nodes
-		$responses = $responseDoc->getElementsByTagName("GetOrdersResponse");
+		$responses = $responseDoc->getElementsByTagName("ReviseCheckoutStatusResponse");
 		foreach ($responses as $response) {
 			$acks = $response->getElementsByTagName("Ack");
 			$ack   = $acks->item(0)->nodeValue;
 			echo "Ack = $ack <BR />\n";   // Success if successful
-			
-			
-			$itemArrays  = $response->getElementsByTagName("ItemArray")->item(0);
-			
-			
-			//print conditions
-			//$items = $itemArrays->getElementsByTagName("Item");
-			//foreach($items as $item) {
-			//	//ItemId
-			//	$id =$item->getElementsByTagName('ItemID')->item(0)->nodeValue;
-			//	echo "ItemID =$id  <BR />\n";
-			//	//ListingDetails
-			//	$listingDetails =$item->getElementsByTagName('ListingDetails')->item(0);
-			//	$startTime =$listingDetails->getElementsByTagName('StartTime')->item(0)->nodeValue;
-			//	$endTime =$listingDetails->getElementsByTagName('EndTime')->item(0)->nodeValue;
-			//	echo "StartTime =$startTime  <BR />\n";
-			//	echo "EndTime = $endTime <BR />\n";
-			//	
-			//	//SellingStatus
-			//	$sellingStatus =$item->getElementsByTagName('SellingStatus')->item(0);
-			//	$bidCount =$sellingStatus->getElementsByTagName('BidCount')->item(0)->nodeValue;
-			//	$currentPrice =$sellingStatus->getElementsByTagName('CurrentPrice')->item(0)->nodeValue;
-			//	$quantitySold =$sellingStatus->getElementsByTagName('QuantitySold')->item(0)->nodeValue;
-			//	$listingStatus =$sellingStatus->getElementsByTagName('ListingStatus')->item(0)->nodeValue;
-			//	echo "BidCount =$bidCount  <BR />\n";
-			//	echo "CurrentPrice = $currentPrice <BR />\n";
-			//	echo "QuantitySold = $quantitySold <BR />\n";
-			//	echo "ListingStatus = $listingStatus <BR />\n";
-			//	//Quantity
-			//	$quantity =$item->getElementsByTagName('Quantity')->item(0)->nodeValue;
-			//	echo "Quantity = $quantity <BR />\n";
-			//	//Available Quantity
-			//	$avb =($quantity-$quantitySold);
-			//	echo "Available Quantity =$avb  <BR />\n";
-			//	echo "<BR />\n";
-			//	echo "<BR />\n";
-			//}
-			
+		
 			
 		} // foreach response
+		
+
 		
 	} // if $errors->length > 0
 }
