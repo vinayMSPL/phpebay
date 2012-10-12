@@ -8,7 +8,7 @@
 <TITLE>GetOrders</TITLE>
 </HEAD>
 <BODY>
-<FORM action="ebay_GetOrders.php" method="post">
+<FORM action="GetOrders.php" method="post">
 <TABLE cellpadding="2" border="0">
 	<TR>
 		<TD>item modification time from:</TD>
