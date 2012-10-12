@@ -23,7 +23,7 @@ class CEbay extends Ctrl {
 	public function additem_item(  ) {
 		
 		ob_start(  );
-		
+				require_once('class/get-common/Utilities.php');
 		require_once('class/get-common/keys.php');
 		require_once('class/get-common/eBaySession.php');
 		
@@ -161,7 +161,29 @@ class CEbay extends Ctrl {
 		return ob_get_clean(  );
 	}
 	
+	public function reviseCheckoutStatus_item(  ) {
+		
+		ob_start(  );
+		
+		require_once 'class/get-common/keys.php';
+		require_once 'class/get-common/eBaySession.php';		
+		
+		include_once 'class/ReviseCheckoutStatus.php';
+
+		return ob_get_clean(  );
+	}
 	
+	public function completeSale_item(  ) {
+		
+		ob_start(  );
+		
+		require_once 'class/get-common/keys.php';
+		require_once 'class/get-common/eBaySession.php';		
+		
+		include_once 'class/CompleteSale.php';
+
+		return ob_get_clean(  );
+	}
 	public function get_plg_cfg(  ) {
 		
 		return array( 'plg' => 'ebay', 'tpl' => 'Ebay', 'tbl' => '', 'mod' => 'MEbay', 'id' => 'id', 'csv' => 1, 'act_as' => 1, 'name' => 'Ebay MANAGER', 'tab' => 'Ebay Info' );
