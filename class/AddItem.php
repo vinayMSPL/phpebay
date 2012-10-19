@@ -8,7 +8,7 @@
 <TITLE>AddItem</TITLE>
 </HEAD>
 <BODY>
-<FORM action="ebay_AddItem.php" method="post">
+<FORM action="AddItem.php" method="post">
 <TABLE cellpadding="2" border="0">
 	<TR>
 		<TD>listingType</TD>
@@ -52,11 +52,16 @@
 	
     <TR>
 		<TD>itemTitle</TD>
-		<TD><INPUT type="text" name="itemTitle" value="TEST IN SANDBOX BEFORE PROD - DO NOT BID" size=30></TD>
+		<TD><INPUT type="text" name="itemTitle" value="<?php echo rand(299,599) / 100; ?>TEST IN SANDBOX BEFORE PROD - DO NOT BID" size=30></TD>
 	</TR>
+	    <TR>
+		<TD>Store Category</TD>
+		<TD><INPUT type="text" name="storeCategory" value="484129" size=30></TD>
+	</TR>
+	
     <TR>
 		<TD>itemDescription</TD>
-		<TD><INPUT type="text" name="itemDescription" value="TEST IN SANDBOX BEFORE PROD - DO NOT BID - This will incur prod listing fees" size=30></TD>
+		<TD><INPUT type="text" name="itemDescription" value="<?php echo rand(299,599) / 100; ?>TEST IN SANDBOX BEFORE PROD - DO NOT BID - This will incur prod listing fees" size=30></TD>
 	</TR>
     <TR>
 	  <TD>listingDuration</TD>
@@ -68,7 +73,7 @@
             <option value="Days_7">7 days</option>
 			  <option value="Days_10">10 days</option>
 			  <option value="Days_13">13 days</option>
-			  <option value="Days_30">30 days</option>
+			  <option value="Days_30"  selected="selected">30 days</option>
 			  <option value="GTC">GTC</option>
           </select>
           (defaults to GTC = 30 days for Store)
@@ -119,7 +124,7 @@ if(isset($_POST['listingType']))
 	$buyItNowPrice   = $_POST['buyItNowPrice'];
 	$reversePrice   = $_POST['reversePrice'];
 	$quantity        = $_POST['quantity'];
-	
+	$storeCategoryID = $_POST['storeCategory'];
 	if ($listingType == 'StoresFixedPrice') {
 		$buyItNowPrice = 0.0;   // don't have BuyItNow for SIF
 		$listingDuration = 'GTC';
@@ -200,12 +205,12 @@ if(isset($_POST['listingType']))
 
 	//ListingEnhancement
 	$requestXmlBody .= "<ListingEnhancement>BoldTitle</ListingEnhancement>";
-	$storeCategoryID="12";
-	$storeCategory2ID="11";
+	//$storeCategoryID="12";
+	//$storeCategory2ID="11";
 	//Storefront
     $requestXmlBody .= '<Storefront>';
 	$requestXmlBody .= "<StoreCategoryID>$storeCategoryID</StoreCategoryID>";
-	$requestXmlBody .= "<StoreCategory2ID>$storeCategory2ID</StoreCategory2ID>";
+	//$requestXmlBody .= "<StoreCategory2ID>$storeCategory2ID</StoreCategory2ID>";
 	$requestXmlBody .= '</Storefront>';
 
 	if($listingType =="Chinese")
